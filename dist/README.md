@@ -64,32 +64,9 @@ Then you need to configure your babel setup in a new **.babelrc** file:
 }
 ```
 
-Add rimraf as a dependancy so that the **dist** folder can be wiped every time babel recompiles:
-
-``
-npm install --save rimraf
-``
-
 Plus add two scripts to your **package.json** - a build script and a start script. The build script takes all of the files in your root and outputs a compiled version in the dist folder, ignoring the folders and files you'e specified. The start script then builds and runs the code.
 
 ```
-"build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+"build": "babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
 "start": "npm run build && node dist/index.js"
 ```
-
-You can now rewrite your **index.js** file in es6:
-
-```
-import express from 'express';
-const app = express();
-
-app.get('/', (req, res) => {
-  res.send('Hello world!');
-});
-
-app.listen(3000, () => {
-  console.log('app listening on port 3000');
-});
-```
-
-Run `` npm start `` in order to compile and run your node app, and open http://localhost:3000/ in order to see the page loaded, showing 'Hello world!'.
