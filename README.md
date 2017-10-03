@@ -1,3 +1,6 @@
+# An 'Easy' Node, Express, Postgres, Knex, React App
+
+### 1. Get your Node/Express app up and running
 ``
 npm init -y
 ``
@@ -50,6 +53,8 @@ app.listen(3000, function() {
 
 ```
 
+## 2. Enter the 21st Century and code with ES6
+
 To let your new app accept javascript written the es6 way, you need to add babel to compile the raw code back into es5:
 
 ``
@@ -93,3 +98,49 @@ app.listen(3000, () => {
 ```
 
 Run `` npm start `` in order to compile and run your node app, and open http://localhost:3000/ in order to see the page loaded, showing 'Hello world!'.
+
+## 3. Start testing your app
+
+Install Mocha:
+
+``npm install --save-dev mocha``
+
+Create a new **test** directory and **test.js** file. In this file, start with a test that you know is going to pass:
+
+```
+var assert = require('assert');
+
+describe('Array', function() {
+  describe('#indexOf()', function() {
+    it('should return -1 when the value is not present', function() {
+      assert.equal(-1, [1,2,3].indexOf(4));
+    });
+  });
+});
+
+```
+
+Here you're going to need to use ES5 for now since Babel does not compile your tests.
+
+Now, add a new test script to your **package.json**:
+```
+"scripts": {
+  "test": "mocha",
+  "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+  "start": "npm run build && node dist/index.js"
+},
+```
+
+Now you can run ``npm test`` in the terminal to see your fake test pass:
+
+```
+$ npm test
+
+Array
+    #indexOf()
+      ✓ should return -1 when the value is not present
+
+
+  1 passing (9ms)
+
+```
